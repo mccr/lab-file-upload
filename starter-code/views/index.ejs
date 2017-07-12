@@ -10,11 +10,13 @@
     <% if(user != null){ %>
       <h3>Hello <%= user.username %></h3>
       <a href="/profile">profile</a>
+      <a href="/posts">posts feed</a>
       <a href="/posts/new">new post</a>
       <a href="/logout">logout</a>
 
     <% } else { %>
       <h3>hello anonymous</h3>
+      <a href="/posts">posts feed</a>
       <a href="/login">login</a>
       <a href="/signup">signup</a>
     <% } %>

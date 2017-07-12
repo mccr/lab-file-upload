@@ -5,6 +5,7 @@
       <p><%= posts[i].content %></p>
       <img src="<%= posts[i].picPath %>" alt="" width="80">
       <a href="/posts/<%= posts[i]._id %>/create">new comment</a>
+      <a href="/posts/<%= posts[i]._id %>/show">show comments</a>
     </div>
 
   <%} %>

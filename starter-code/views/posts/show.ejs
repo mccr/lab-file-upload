@@ -1,0 +1,15 @@
+<% if (typeof errorMessage !== "undefined") { %>
+  <div class="error-message"><%= errorMessage %></div>
+<% } %>
+
+
+<ul>
+  <% for (i=0; i < comments.length; i++) { %>
+    <div class="post-panel">
+      <span>authorId: <%= comments[i].authorId %></span>
+      <p><%= comments[i].content %></p>
+      <img src="<%= comments[i].imagePath %>" alt="" width="80">
+    </div>
+
+  <%} %>
+</ul>

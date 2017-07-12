@@ -60,6 +60,7 @@ router.post('/:id', [ensureLoggedIn('/login'), upload.single('photo')], (req, re
     imagePath: `uploads/${req.file.filename}`,
     imageName: req.file.originalname
   };
+
   Post.update({_id:req.params.id},{$push: {comments: newComment}}, (err, post) => {
 
         if (err) {
@@ -71,11 +72,24 @@ router.post('/:id', [ensureLoggedIn('/login'), upload.single('photo')], (req, re
           res.redirect("/posts");
         }
   });
-
 });
 
-router.get('/show', (req, res, next) => {
-  res.render('posts/show');
+router.get('/:id/show', (req, res, next) => {
+  Post.findById(req.params.id, (err, post) => {
+    if (err) {
+      res.redirect(`/posts`, {
+        errorMessage: "Something went wrong"
+      });
+    } else {
+      if(post.comments.length > 0){
+        res.render('posts/show', {comments: post.comments});
+      } else {
+        res.redirect("/posts");
+      }
+    }
+
+  });
+
 });
 
 module.exports = router;
