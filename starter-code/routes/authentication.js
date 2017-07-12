@@ -16,11 +16,11 @@ router.post('/login', ensureLoggedOut(), passport.authenticate('local-login', {
   failureFlash : true
 }));
 
-router.get('/signup', (req, res) => {
+router.get('/signup', ensureLoggedOut(), (req, res) => {
     res.render('authentication/signup', { message: req.flash('error')});
 });
 
-router.post('/signup', upload.single('photo'), passport.authenticate('local-signup', {
+router.post('/signup', [ensureLoggedOut(), upload.single('photo')],passport.authenticate('local-signup', {
   successRedirect : '/',
   failureRedirect : '/signup',
   failureFlash : true
@@ -32,7 +32,7 @@ router.get('/profile', ensureLoggedIn('/login'), (req, res) => {
     });
 });
 
-router.post('/logout', ensureLoggedIn('/login'), (req, res) => {
+router.get('/logout', ensureLoggedIn('/login'), (req, res) => {
     req.logout();
     res.redirect('/');
 });

@@ -6,9 +6,19 @@
   </head>
   <body>
     <h1>Welcome to IronTumblr</h1>
-    <a href="/login">Login</a>
-    <a href="/signup">Signup</a>
-    <a href="/profile">profile</a>
-    <a href="/logout">logout</a>
+    <div class="user-panel">
+    <% if(user != null){ %>
+      <h3>Hello <%= user.username %></h3>
+      <a href="/profile">profile</a>
+      <a href="/posts/new">new post</a>
+      <a href="/logout">logout</a>
+
+    <% } else { %>
+      <h3>hello anonymous</h3>
+      <a href="/login">login</a>
+      <a href="/signup">signup</a>
+    <% } %>
+    </div>
+
   </body>
 </html>

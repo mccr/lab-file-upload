@@ -28,7 +28,7 @@ passport.use('local-login', new LocalStrategy((username, password, next) => {
     if (!bcrypt.compareSync(password, user.password)) {
       return next(null, false, { message: "Incorrect password" });
     }
-
+    debug('you are logged in');
     return next(null, user);
   });
 }));
@@ -36,7 +36,6 @@ passport.use('local-login', new LocalStrategy((username, password, next) => {
 passport.use('local-signup', new LocalStrategy(
   { passReqToCallback: true },
   (req, username, password, next) => {
-      console.log(req.file);
     // To avoid race conditions
     process.nextTick(() => {
         User.findOne({
@@ -53,7 +52,10 @@ passport.use('local-signup', new LocalStrategy(
                   email,
                   password
                 } = req.body;
-                const picture = req.file;
+                const picture = {
+                  path: `uploads/${req.file.filename}`,
+                  name: req.file.originalname
+                };
                 const hashPass = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
                 const newUser = new User({
                   username,

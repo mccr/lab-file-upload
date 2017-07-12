@@ -1,0 +1,11 @@
+<ul>
+  <% for (i=0; i < posts.length; i++) { %>
+    <div class="post-panel">
+      <span>CreatorId: <%= posts[i].creatorId %></span>
+      <p><%= posts[i].content %></p>
+      <img src="<%= posts[i].picPath %>" alt="" width="80">
+      <a href="/posts/<%= posts[i]._id %>/create">new comment</a>
+    </div>
+
+  <%} %>
+</ul>
